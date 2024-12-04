@@ -110,3 +110,61 @@ GET /users/logout HTTP/1.1
 Host: example.com
 Authorization: Bearer jwt_token_here
 ```
+
+### Endpoint: `/captains/register`
+
+#### Description:
+This endpoint registers a new captain by collecting their personal and vehicle information. It performs validation to ensure all fields are correctly filled.
+
+### Request Method:
+- `POST`
+
+### Request Body:
+The request body must be a JSON object with the following fields:
+
+#### Personal Information:
+- `email` (string, required): The email address of the captain. Must be in a valid email format.
+- `fullname` (object, required):
+  - `firstname` (string, required): The first name of the captain. Must be at least 3 characters long.
+  - `lastname` (string, optional): The last name of the captain.
+- `password` (string, required): The captain's password. Must be at least 6 characters long.
+
+#### Vehicle Information:
+- `vehicle` (object, required):
+  - `color` (string, required): The vehicle's color. Must be at least 3 characters long.
+  - `plate` (string, required): The vehicle's plate number. Must be at least 3 characters long.
+  - `capacity` (integer, required): The vehicle's seating capacity. Must be at least 1.
+  - `vehicleType` (string, required): The type of the vehicle. Must be one of the following values: `car`, `motorcycle`, `auto`.
+
+#### Example Request Body:
+```json
+{
+  "email": "john.captain@example.com",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "password": "securepassword123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "AB123CD",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Example Response:
+
+- `captain` (object):
+    - `fullname` (object):
+        - `firstname` (string): The first name of the captain.
+        - `lastname` (string): The last name of the captain.
+    - `email` (string): The email address of the captain.
+    - `password` (string): The password for the captain.
+    - `vehicle` (object):
+        - `color` (string): Vehicle color.
+        - `capacity` (number): Vehicle capacity.
+        - `vehicleType` (string): Vehicle type.
+        - `plate` (string): Vehicle number plate.
+- `token` (string): JWT Token
