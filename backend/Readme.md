@@ -168,3 +168,78 @@ The request body must be a JSON object with the following fields:
         - `vehicleType` (string): Vehicle type.
         - `plate` (string): Vehicle number plate.
 - `token` (string): JWT Token
+
+
+### Endpoint: `/captains/login`
+
+#### Description:
+This endpoint logs in a captain by verifying their email and password. Upon successful login, a token is generated and sent back in the response.
+
+---
+
+### Request Method:
+- `POST`
+
+---
+
+### Request Body:
+The request body must be a JSON object with the following fields:
+
+- `email` (string, required): The captain's email address.
+- `password` (string, required): The captain's password. Must be at least 6 characters long.
+
+#### Example Request Body:
+```json
+{
+  "email": "captain@example.com",
+  "password": "securepassword123"
+}
+```
+
+## Get Captain Profile
+
+### Endpoint: `/captains/profile`
+
+#### Description:
+This endpoint retrieves the authenticated captain's profile information. The captain must be authenticated to access this endpoint.
+
+---
+
+### Request Method:
+- `GET`
+
+---
+
+### Headers:
+- `Authorization`: `Bearer <jwt_token>` (required)
+
+#### Example Request:
+```http
+GET /captains/profile HTTP/1.1
+Host: example.com
+Authorization: Bearer jwt_token_here
+```
+
+## Logout Captain
+
+### Endpoint: `/captains/logout`
+
+#### Description:
+This endpoint logs out the authenticated captain by invalidating their token and clearing the cookie containing the token.
+
+---
+
+### Request Method:
+- `GET`
+
+---
+
+### Headers:
+- `Authorization`: `Bearer <jwt_token>` (required)
+
+#### Example Request:
+```http
+GET /captains/logout HTTP/1.1
+Host: example.com
+Authorization: Bearer jwt_token_here
+```
